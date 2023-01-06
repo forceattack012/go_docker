@@ -12,7 +12,6 @@ COPY . ./
 
 ENV GOARCH=amd64
 
-ENV GO111MODULE=off
 RUN go build -o /go/bin/app cmd/main.go
 
 

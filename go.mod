@@ -1,4 +1,4 @@
-module github.com/forceattack012/example_docker
+module github.com/forceattack012/go_docker
 
 go 1.19
 

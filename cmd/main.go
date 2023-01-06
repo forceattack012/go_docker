@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/forceattack012/example_docker/todo"
+	"github.com/forceattack012/go_docker/todo"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
