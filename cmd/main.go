@@ -1,14 +1,26 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/forceattack012/go_docker/todo"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/joho/godotenv"
 )
 
+func init() {
+	err := godotenv.Load("docker.env")
+	if err != nil {
+		log.Fatalf("Could not load env %s", err.Error())
+	}
+}
+
 func main() {
-	dsn := "host=localhost user=postgres password=todopassword dbname=postgres port=5439 sslmode=disable TimeZone=Asia/Bangkok"
+	dsn := os.Getenv("dsn")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err.Error())

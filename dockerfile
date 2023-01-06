@@ -1,4 +1,4 @@
-FROM golang:1.17-buster AS build
+FROM golang:1.19.4-buster AS build
 
 
 # Set the Current Working Directory inside the container
@@ -9,10 +9,11 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 COPY . ./
+RUN ls
 
 ENV GOARCH=amd64
 
-RUN go build -o /go/bin/app cmd/main.go
+RUN ls && go build -o /go/bin/app cmd/*.go
 
 
 FROM gcr.io/distroless/base-debian11

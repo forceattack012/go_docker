@@ -1,0 +1,25 @@
+services:
+  db-postgres:
+    container_name: todo-postgres
+    image: postgres:latest
+    ports:
+      - 5439:5432
+    # networks:
+    #   - todo-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=todopassword
+  web:
+    container_name: todo-api
+    image: todo-api
+    ports:
+      - 8083:8080
+    # networks:
+    #   - todo-network
+    env_file:
+      - docker.env
+    depends_on:
+      - db-postgres
+
+networks:
+  todo-network: {}
