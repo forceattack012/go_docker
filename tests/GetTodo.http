@@ -1,2 +1,2 @@
-GET http://localhost:8083/todo
+GET https://todo-api.me/todo
 Content-Type: application/json

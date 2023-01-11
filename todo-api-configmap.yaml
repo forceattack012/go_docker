@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-configmap
+  namespace: default
+data:
+  config.yaml: |
+    host: 10.1.0.104 #internal ip on pod
+    user: postgres
+    password: todopassword 
+    dbname: postgres
+    port: 5432 #internal port on pod
+    sslmode: disable
+    timezone: Asia/Bangkok
+    env:  kube_test
+    app_port: 80

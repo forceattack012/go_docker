@@ -1,0 +1,9 @@
+host: 10.1.0.104  
+user: postgres
+password: todopassword 
+dbname: postgres
+port: 5432
+sslmode: disable
+timezone: Asia/Bangkok
+env:  kube
+app_port: 81

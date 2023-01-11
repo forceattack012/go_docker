@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0%
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-api
+  template:
+    metadata:
+      labels:
+        app: todo-api
+    spec:
+      containers:
+      - name: todo-api
+        image: todo-api:latest
+        imagePullPolicy: "IfNotPresent"
+        volumeMounts:
+        - name: todo-api-config-volume
+          mountPath: /config
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256M
+          requests:
+            cpu: 200m
+            memory: 256M
+      volumes:
+        - name: todo-api-config-volume
+          configMap:
+            name: todo-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-api-svc
+spec:
+  selector:
+    app: todo-api
+  ports:
+    - port: 8083
+      targetPort: 80
+  type: LoadBalancer

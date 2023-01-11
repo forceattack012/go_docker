@@ -16,7 +16,6 @@ ENV GOARCH=amd64
 RUN go build -o /go/bin/app cmd/main.go
 
 FROM gcr.io/distroless/base-debian11
-# COPY --from=build /app/cmd/config/*.yaml ./config/
 COPY --from=build /go/bin/app /app
 
 # This container exposes port 8080 to the outside world

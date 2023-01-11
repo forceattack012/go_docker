@@ -1,23 +1,26 @@
+version: "3.9"
 services:
   db-postgres:
     container_name: todo-postgres
     image: postgres:latest
     ports:
       - 5439:5432
-    # networks:
-    #   - todo-network
+    networks:
+      - todo-network
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=todopassword
   web:
     container_name: todo-api
     image: todo-api
+    volumes:
+      - ./compose_dev_config:/config
     ports:
-      - 8083:8080
-    # networks:
-    #   - todo-network
-    env_file:
-      - docker.env
+      - 8083:81
+    networks:
+      - todo-network
+    environment:
+      - env=dev
     depends_on:
       - db-postgres
 

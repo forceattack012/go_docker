@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-postgres
+  labels:
+    app: db-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-postgres
+  template:
+    metadata:
+      labels:
+        app: db-postgres
+    spec:
+      containers:
+      - name: todo-postgres
+        image: postgres:latest
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: todopassword
+        ports:
+          - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-postgres-svc
+spec:
+  selector:
+    app: db-postgres
+  ports:
+    - protocol: TCP
+      port: 5439
+      targetPort: 5432
+  type: LoadBalancer
